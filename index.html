@@ -1,181 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MLBB Points By DAI REN's Store</title>
+<meta charset="UTF-8">
 
-  <link rel="stylesheet" href="style.css">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<title>MLBB Points by DAI REN's Store</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 </head>
+
 <body>
 
-<div class="container">
+<!-- LOGIN PAGE -->
 
-  <h1>🔥 DAIREN's MLBB Points WEB</h1>
+<div id="loginPage" class="page">
 
-  <button class="login-btn" onclick="login()">
-    Login With Google
-  </button>
+  <div class="login-box">
 
-  <div class="card">
+    <h1>🔥 MLBB Points </h1>
 
-    <h2>User Info</h2>
+    <p class="login-text">
+      Login With Google
+    </p>
 
-    <p id="name">Name: -</p>
-
-    <p id="points">Points: 0</p>
-
-  </div>
-
-  <div class="card">
-
-    <h2>Admin Panel</h2>
-
-    <input type="text" id="uid" placeholder="User UID">
-
-    <input type="text" id="item" placeholder="Package Name (eg. wp or 86)">
-
-    <input type="number" id="amount" placeholder="Amount">
-
-    <button onclick="adminAdd()">
-      Add Points
+    <button onclick="login()">
+      Login With Google
     </button>
 
   </div>
 
-  <h2 class="title">MLBB Redeem List</h2>
+</div>
 
-  <div class="packages">
+<!-- HOME PAGE -->
 
-    <div class="package">
-      <h3>WP</h3>
-      <p>Redeem 0/100</p>
+<div id="homePage" class="page" style="display:none;">
+
+  <!-- HOME -->
+
+  <div id="homeSection">
+
+    <div class="top-card">
+
+      <h2 id="welcomeText">
+        Welcome
+      </h2>
+
+      <p id="pointsText">
+        Points: 0
+      </p>
+
     </div>
 
-    <div class="package">
-      <h3>11 Diamonds</h3>
-      <p>Redeem 0/250</p>
+    <div class="packages">
+
+      <div class="package">
+        <h3>WP</h3>
+        <p>Redeem 0/100</p>
+      </div>
+
+      <div class="package">
+        <h3>11 Diamonds</h3>
+        <p>Redeem 0/250</p>
+      </div>
+
+      <div class="package">
+        <h3>22 Diamonds</h3>
+        <p>Redeem 0/300</p>
+      </div>
+
+      <div class="package">
+        <h3>56 Diamonds</h3>
+        <p>Redeem 0/400</p>
+      </div>
+
+      <div class="package">
+        <h3>86 Diamonds</h3>
+        <p>Redeem 0/500</p>
+      </div>
+
+      <div class="package">
+        <h3>112 Diamonds</h3>
+        <p>Redeem 0/650</p>
+      </div>
+
+      <div class="package">
+        <h3>172 Diamonds</h3>
+        <p>Redeem 0/700</p>
+      </div>
+
+      <div class="package">
+        <h3>257 Diamonds</h3>
+        <p>Redeem 0/900</p>
+      </div>
+
+      <div class="package">
+        <h3>343 Diamonds</h3>
+        <p>Redeem 0/1200</p>
+      </div>
+
+      <div class="package">
+        <h3>514 Diamonds</h3>
+        <p>Redeem 0/1800</p>
+      </div>
+
+      <div class="package">
+        <h3>706 Diamonds</h3>
+        <p>Redeem 0/2300</p>
+      </div>
+
+      <div class="package">
+        <h3>878 Diamonds</h3>
+        <p>Redeem 0/2500</p>
+      </div>
+
+      <div class="package">
+        <h3>1050 Diamonds</h3>
+        <p>Redeem 0/3350</p>
+      </div>
+
+      <div class="package">
+        <h3>1412 Diamonds</h3>
+        <p>Redeem 0/5400</p>
+      </div>
+
+      <div class="package">
+        <h3>2195 Diamonds</h3>
+        <p>Redeem 0/6000</p>
+      </div>
+
+      <div class="package">
+        <h3>3688 Diamonds</h3>
+        <p>Redeem 0/6500</p>
+      </div>
+
+      <div class="package">
+        <h3>5534 Diamonds</h3>
+        <p>Redeem 0/8000</p>
+      </div>
+
+      <div class="package">
+        <h3>7376 Diamonds</h3>
+        <p>Redeem 0/10000</p>
+      </div>
+
     </div>
 
-    <div class="package">
-      <h3>22 Diamonds</h3>
-      <p>Redeem 0/300</p>
+  </div>
+
+  <!-- REDEEM -->
+
+  <div id="redeemSection" style="display:none;">
+
+    <div class="card">
+
+      <h2>Redeem</h2>
+
+      <p>
+        Redeem system coming soon
+      </p>
+
     </div>
 
-    <div class="package">
-      <h3>56 Diamonds</h3>
-      <p>Redeem 0/400</p>
+  </div>
+
+  <!-- HISTORY -->
+
+  <div id="historySection" style="display:none;">
+
+    <div class="card">
+
+      <h2>Redeem History</h2>
+
+      <p>
+        No history yet
+      </p>
+
     </div>
 
-    <div class="package">
-      <h3>86 Diamonds</h3>
-      <p>Redeem 0/500</p>
+  </div>
+
+  <!-- PROFILE -->
+
+  <div id="profileSection" style="display:none;">
+
+    <div class="card">
+
+      <h2>User Profile</h2>
+
+      <input
+      type="text"
+      id="username"
+      placeholder="Enter Telegram Username"
+      >
+
+      <button onclick="saveUsername()">
+        Save Username
+      </button>
+
+      <p id="profileName">
+        Username: -
+      </p>
+
+      <p id="profilePoints">
+        Points: 0
+      </p>
+
     </div>
 
-    <div class="package">
-      <h3>112 Diamonds</h3>
-      <p>Redeem 0/650</p>
+    <!-- ADMIN PANEL -->
+
+    <div
+    class="card"
+    id="adminPanel"
+    style="display:none;"
+    >
+
+      <h2>Admin Panel</h2>
+
+      <input
+      type="text"
+      id="searchUsername"
+      placeholder="Telegram Username"
+      >
+
+      <input
+      type="text"
+      id="item"
+      placeholder="Package Name (eg. 86)"
+      >
+
+      <input
+      type="number"
+      id="amount"
+      placeholder="Amount"
+      >
+
+      <button onclick="adminAdd()">
+        Add Points
+      </button>
+
     </div>
 
-    <div class="package">
-      <h3>172 Diamonds</h3>
-      <p>Redeem 0/700</p>
-    </div>
+  </div>
 
-    <div class="package">
-      <h3>257 Diamonds</h3>
-      <p>Redeem 0/900</p>
-    </div>
+  <!-- BOTTOM NAV -->
 
-    <div class="package">
-      <h3>343 Diamonds</h3>
-      <p>Redeem 0/1200</p>
-    </div>
+  <div class="bottom-nav">
 
-    <div class="package">
-      <h3>429 Diamonds</h3>
-      <p>Redeem 0/1500</p>
-    </div>
+    <button onclick="showPage('home')">
+      Home
+    </button>
 
-    <div class="package">
-      <h3>514 Diamonds</h3>
-      <p>Redeem 0/1800</p>
-    </div>
+    <button onclick="showPage('redeem')">
+      Redeem
+    </button>
 
-    <div class="package">
-      <h3>600 Diamonds</h3>
-      <p>Redeem 0/2000</p>
-    </div>
+    <button onclick="showPage('history')">
+      History
+    </button>
 
-    <div class="package">
-      <h3>706 Diamonds</h3>
-      <p>Redeem 0/2300</p>
-    </div>
-
-    <div class="package">
-      <h3>878 Diamonds</h3>
-      <p>Redeem 0/2500</p>
-    </div>
-
-    <div class="package">
-      <h3>963 Diamonds</h3>
-      <p>Redeem 0/3000</p>
-    </div>
-
-    <div class="package">
-      <h3>1050 Diamonds</h3>
-      <p>Redeem 0/3350</p>
-    </div>
-
-    <div class="package">
-      <h3>1135 Diamonds</h3>
-      <p>Redeem 0/3900</p>
-    </div>
-
-    <div class="package">
-      <h3>1220 Diamonds</h3>
-      <p>Redeem 0/4400</p>
-    </div>
-
-    <div class="package">
-      <h3>1412 Diamonds</h3>
-      <p>Redeem 0/5400</p>
-    </div>
-
-    <div class="package">
-      <h3>2195 Diamonds</h3>
-      <p>Redeem 0/6000</p>
-    </div>
-
-    <div class="package">
-      <h3>3688 Diamonds</h3>
-      <p>Redeem 0/6500</p>
-    </div>
-
-    <div class="package">
-      <h3>4394 Diamonds</h3>
-      <p>Redeem 0/7000</p>
-    </div>
-
-    <div class="package">
-      <h3>5534 Diamonds</h3>
-      <p>Redeem 0/8000</p>
-    </div>
-
-    <div class="package">
-      <h3>6238 Diamonds</h3>
-      <p>Redeem 0/9200</p>
-    </div>
-
-    <div class="package">
-      <h3>7376 Diamonds</h3>
-      <p>Redeem 0/10000</p>
-    </div>
+    <button onclick="showPage('profile')">
+      Profile
+    </button>
 
   </div>
 
