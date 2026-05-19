@@ -3,393 +3,159 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
-
-<title>MLBB Points By DAI REN's Store</title>
+<title>MLBB Redeem Shop</title>
 
 <link rel="stylesheet" href="style.css">
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 </head>
-
 <body>
-
-<!-- LOGIN PAGE -->
 
 <div id="loginPage" class="page">
 
-  <div class="login-box">
+<div class="login-box">
 
-    <h1>🔥 MLBB Points By DAI REN's Store💫</h1>
+<h1>🔥 MLBB Redeem Shop</h1>
 
-    <p class="login-text">
+<input
+id="loginEmail"
+type="email"
+placeholder="Enter Gmail"
+>
 
-      Login With Google
+<input
+id="loginPassword"
+type="password"
+placeholder="Enter Password"
+>
 
-    </p>
+<button onclick="login()">
+Login
+</button>
 
-    <button onclick="login()">
+<p onclick="forgotPassword()">
+Forgot Password?
+</p>
 
-      Login With Google
-
-    </button>
-
-  </div>
+<p onclick="showRegister()">
+Create Account
+</p>
 
 </div>
 
-<!-- HOME PAGE -->
+</div>
 
-<div
-id="homePage"
-class="page"
-style="display:none;"
+<div id="registerPage" class="page" style="display:none;">
+
+<div class="login-box">
+
+<h1>Create Account</h1>
+
+<input
+id="registerEmail"
+type="email"
+placeholder="Enter Gmail"
 >
 
-  <!-- HOME -->
-
-  <div id="homeSection">
-
-    <div class="top-card">
-
-      <h2 id="welcomeText">
-
-        Welcome
-
-      </h2>
-
-    </div>
-
-    <div class="packages">
-
-      <div class="package">
-        <h3>WP</h3>
-        <p id="redeem-wp">
-          Redeem 0/100
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>11 Diamonds</h3>
-        <p id="redeem-11">
-          Redeem 0/250
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>22 Diamonds</h3>
-        <p id="redeem-22">
-          Redeem 0/300
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>56 Diamonds</h3>
-        <p id="redeem-56">
-          Redeem 0/400
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>86 Diamonds</h3>
-        <p id="redeem-86">
-          Redeem 0/500
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>112 Diamonds</h3>
-        <p id="redeem-112">
-          Redeem 0/650
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>172 Diamonds</h3>
-        <p id="redeem-172">
-          Redeem 0/700
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>257 Diamonds</h3>
-        <p id="redeem-257">
-          Redeem 0/900
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>343 Diamonds</h3>
-        <p id="redeem-343">
-          Redeem 0/1200
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>429 Diamonds</h3>
-        <p id="redeem-429">
-          Redeem 0/1500
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>514 Diamonds</h3>
-        <p id="redeem-514">
-          Redeem 0/1800
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>600 Diamonds</h3>
-        <p id="redeem-600">
-          Redeem 0/2000
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>706 Diamonds</h3>
-        <p id="redeem-706">
-          Redeem 0/2300
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>878 Diamonds</h3>
-        <p id="redeem-878">
-          Redeem 0/2500
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>963 Diamonds</h3>
-        <p id="redeem-963">
-          Redeem 0/3000
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>1050 Diamonds</h3>
-        <p id="redeem-1050">
-          Redeem 0/3350
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>1135 Diamonds</h3>
-        <p id="redeem-1135">
-          Redeem 0/3900
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>1220 Diamonds</h3>
-        <p id="redeem-1220">
-          Redeem 0/4400
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>1412 Diamonds</h3>
-        <p id="redeem-1412">
-          Redeem 0/5400
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>2195 Diamonds</h3>
-        <p id="redeem-2195">
-          Redeem 0/6000
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>3688 Diamonds</h3>
-        <p id="redeem-3688">
-          Redeem 0/6500
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>4394 Diamonds</h3>
-        <p id="redeem-4394">
-          Redeem 0/7000
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>5534 Diamonds</h3>
-        <p id="redeem-5534">
-          Redeem 0/8000
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>6238 Diamonds</h3>
-        <p id="redeem-6238">
-          Redeem 0/9200
-        </p>
-      </div>
-
-      <div class="package">
-        <h3>7376 Diamonds</h3>
-        <p id="redeem-7376">
-          Redeem 0/10000
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- REDEEM -->
-
-  <div
-  id="redeemSection"
-  style="display:none;"
-  >
-
-    <div class="card">
-
-      <h2>Redeem</h2>
-
-      <p>
-
-        Redeem system coming soon
-
-      </p>
-
-    </div>
-
-  </div>
-
-  <!-- HISTORY -->
-
-  <div
-  id="historySection"
-  style="display:none;"
-  >
-
-    <div class="card">
-
-      <h2>Redeem History</h2>
-
-      <p>
-
-        No history yet
-
-      </p>
-
-    </div>
-
-  </div>
-
-  <!-- PROFILE -->
-
-  <div
-  id="profileSection"
-  style="display:none;"
-  >
-
-    <div class="card">
-
-      <h2>User Profile</h2>
-
-      <input
-      type="text"
-      id="username"
-      placeholder="Enter Telegram Username"
-      >
-
-      <button onclick="saveUsername()">
-
-        Save Username
-
-      </button>
-
-      <p id="profileName">
-
-        Username: -
-
-      </p>
-
-    </div>
-
-    <!-- ADMIN PANEL -->
-
-    <div
-    class="card"
-    id="adminPanel"
-    style="display:none;"
-    >
-
-      <h2>Admin Panel</h2>
-
-      <input
-      type="text"
-      id="searchUsername"
-      placeholder="Telegram Username"
-      >
-
-      <input
-      type="text"
-      id="item"
-      placeholder="Package Name (eg. 86)"
-      >
-
-      <input
-      type="number"
-      id="amount"
-      placeholder="Amount"
-      >
-
-      <button onclick="adminAdd()">
-
-        Add Redeem Points
-
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- BOTTOM NAV -->
-
-  <div class="bottom-nav">
-
-    <button onclick="showPage('home')">
-
-      Home
-
-    </button>
-
-    <button onclick="showPage('redeem')">
-
-      Redeem
-
-    </button>
-
-    <button onclick="showPage('history')">
-
-      History
-
-    </button>
-
-    <button onclick="showPage('profile')">
-
-      Profile
-
-    </button>
-
-  </div>
+<input
+id="registerUsername"
+type="text"
+placeholder="Enter Telegram Username"
+>
+
+<input
+id="registerPassword"
+type="password"
+placeholder="Enter Password"
+>
+
+<button onclick="register()">
+Register
+</button>
+
+<p onclick="showLogin()">
+Already have account?
+</p>
+
+</div>
+
+</div>
+
+<div id="homePage" style="display:none;">
+
+<div class="top-card">
+
+<h2 id="welcomeText">
+Welcome
+</h2>
+
+</div>
+
+<div class="packages">
+
+<div class="package"><h3>WP</h3><p id="redeem-wp">Redeem 0/100</p></div>
+<div class="package"><h3>11 Diamonds</h3><p id="redeem-11">Redeem 0/250</p></div>
+<div class="package"><h3>22 Diamonds</h3><p id="redeem-22">Redeem 0/300</p></div>
+<div class="package"><h3>56 Diamonds</h3><p id="redeem-56">Redeem 0/400</p></div>
+<div class="package"><h3>86 Diamonds</h3><p id="redeem-86">Redeem 0/500</p></div>
+<div class="package"><h3>112 Diamonds</h3><p id="redeem-112">Redeem 0/650</p></div>
+<div class="package"><h3>172 Diamonds</h3><p id="redeem-172">Redeem 0/700</p></div>
+<div class="package"><h3>257 Diamonds</h3><p id="redeem-257">Redeem 0/900</p></div>
+<div class="package"><h3>343 Diamonds</h3><p id="redeem-343">Redeem 0/1200</p></div>
+<div class="package"><h3>429 Diamonds</h3><p id="redeem-429">Redeem 0/1500</p></div>
+<div class="package"><h3>514 Diamonds</h3><p id="redeem-514">Redeem 0/1800</p></div>
+<div class="package"><h3>600 Diamonds</h3><p id="redeem-600">Redeem 0/2000</p></div>
+<div class="package"><h3>706 Diamonds</h3><p id="redeem-706">Redeem 0/2300</p></div>
+<div class="package"><h3>878 Diamonds</h3><p id="redeem-878">Redeem 0/2500</p></div>
+<div class="package"><h3>963 Diamonds</h3><p id="redeem-963">Redeem 0/3000</p></div>
+<div class="package"><h3>1050 Diamonds</h3><p id="redeem-1050">Redeem 0/3350</p></div>
+<div class="package"><h3>1135 Diamonds</h3><p id="redeem-1135">Redeem 0/3900</p></div>
+<div class="package"><h3>1220 Diamonds</h3><p id="redeem-1220">Redeem 0/4400</p></div>
+<div class="package"><h3>1412 Diamonds</h3><p id="redeem-1412">Redeem 0/5400</p></div>
+<div class="package"><h3>2195 Diamonds</h3><p id="redeem-2195">Redeem 0/6000</p></div>
+<div class="package"><h3>3688 Diamonds</h3><p id="redeem-3688">Redeem 0/6500</p></div>
+<div class="package"><h3>4394 Diamonds</h3><p id="redeem-4394">Redeem 0/7000</p></div>
+<div class="package"><h3>5534 Diamonds</h3><p id="redeem-5534">Redeem 0/8000</p></div>
+<div class="package"><h3>6238 Diamonds</h3><p id="redeem-6238">Redeem 0/9200</p></div>
+<div class="package"><h3>7376 Diamonds</h3><p id="redeem-7376">Redeem 0/10000</p></div>
+
+</div>
+
+<div class="contact-box">
+
+<h3>Contact Us</h3>
+
+<a
+href="https://t.me/dairenstore"
+target="_blank"
+class="telegram-btn"
+>
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
+width="22"
+>
+
+<span>
+Owner Telegram
+</span>
+
+</a>
+
+</div>
+
+<div class="bottom-nav">
+
+<button onclick="logout()">
+Logout
+</button>
+
+</div>
 
 </div>
 
