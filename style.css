@@ -8,26 +8,65 @@ body{
 
 .container{
   padding:20px;
-  text-align:center;
 }
 
 h1{
+  text-align:center;
   color:#38bdf8;
 }
 
-button{
-  background:#38bdf8;
-  border:none;
-  padding:12px 20px;
-  border-radius:10px;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
+.title{
+  margin-top:30px;
+  color:#38bdf8;
 }
 
 .card{
-  margin-top:20px;
   background:#1e293b;
   padding:20px;
   border-radius:15px;
+  margin-top:20px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#38bdf8;
+  color:white;
+  font-size:16px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#334155;
+  color:white;
+  box-sizing:border-box;
+}
+
+.packages{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:20px;
+}
+
+.package{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+}
+
+.package h3{
+  margin:0;
+  color:#38bdf8;
+}
+
+.package p{
+  margin-top:10px;
 }
