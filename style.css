@@ -1,0 +1,33 @@
+body{
+  margin:0;
+  padding:0;
+  background:#0f172a;
+  font-family:sans-serif;
+  color:white;
+}
+
+.container{
+  padding:20px;
+  text-align:center;
+}
+
+h1{
+  color:#38bdf8;
+}
+
+button{
+  background:#38bdf8;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.card{
+  margin-top:20px;
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+}
