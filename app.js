@@ -13,42 +13,125 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-function login() {
-  const provider = new firebase.auth.GoogleAuthProvider();
+const packagePoints = {
+  wp: 6,
+  11: 2,
+  22: 5,
+  56: 16,
+  86: 25,
+  112: 45,
+  172: 62,
+  257: 100,
+  343: 180,
+  514: 240,
+  600: 300,
+  706: 320,
+  878: 360,
+  963: 500,
+  1050: 520,
+  1135: 545,
+  1220: 570,
+  1412: 640,
+  2195: 680,
+  3688: 730,
+  4394: 800,
+  5534: 960,
+  6238: 1100,
+  7376: 1500
+};
+
+let currentUserUID = "";
+
+function login(){
+
+  const provider =
+  new firebase.auth.GoogleAuthProvider();
 
   auth.signInWithPopup(provider)
-    .then((result) => {
 
-      const user = result.user;
+  .then(async(result)=>{
 
-      document.getElementById("name").innerText =
-        "Name: " + user.displayName;
+    const user = result.user;
 
-      const userRef = db.collection("users").doc(user.uid);
+    currentUserUID = user.uid;
 
-      userRef.get().then((doc) => {
+    document.getElementById("name").innerText =
+    "Name: " + user.displayName;
 
-        if (!doc.exists) {
+    const userRef =
+    db.collection("users").doc(user.uid);
 
-          userRef.set({
-            name: user.displayName,
-            points: 0
-          });
+    const doc = await userRef.get();
 
-          document.getElementById("points").innerText =
-            "Points: 0";
+    if(!doc.exists){
 
-        } else {
-
-          document.getElementById("points").innerText =
-            "Points: " + doc.data().points;
-
-        }
-
+      await userRef.set({
+        name:user.displayName,
+        points:0
       });
 
-    })
-    .catch((error) => {
-      alert(error.message);
+      document.getElementById("points").innerText =
+      "Points: 0";
+
+    }else{
+
+      document.getElementById("points").innerText =
+      "Points: " + doc.data().points;
+
+    }
+
+  })
+
+  .catch((error)=>{
+    alert(error.message);
+  });
+
+}
+
+async function adminAdd(){
+
+  const uid =
+  document.getElementById("uid").value;
+
+  const item =
+  document.getElementById("item").value.toLowerCase();
+
+  const amount =
+  parseInt(document.getElementById("amount").value);
+
+  if(!packagePoints[item]){
+    alert("Invalid Package");
+    return;
+  }
+
+  const addPoints =
+  packagePoints[item] * amount;
+
+  const userRef =
+  db.collection("users").doc(uid);
+
+  const doc =
+  await userRef.get();
+
+  if(doc.exists){
+
+    const current =
+    doc.data().points || 0;
+
+    await userRef.update({
+      points: current + addPoints
     });
+
+    alert(
+      "Added " +
+      addPoints +
+      " points"
+    );
+
+  }else{
+
+    alert("User not found");
+
+  }
+
 }
