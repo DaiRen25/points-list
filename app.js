@@ -13,181 +13,189 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-let currentUserUID = "";
+/* PACKAGE MAX */
 
-/* =========================
-   ADMIN UID
-========================= */
-
-const adminUIDs = [
-"ew4aLAuauqTh0IBdXNfQMmm83Mw1"
-];
-
-/* =========================
-   PACKAGE DATA
-========================= */
-
-const packages = {
-wp:{add:6,max:100},
-11:{add:2,max:250},
-22:{add:5,max:300},
-56:{add:16,max:400},
-86:{add:25,max:500},
-112:{add:45,max:650},
-172:{add:62,max:700},
-257:{add:100,max:900},
-343:{add:180,max:1200},
-429:{add:200,max:1500},
-514:{add:240,max:1800},
-600:{add:300,max:2000},
-706:{add:320,max:2300},
-878:{add:360,max:2500},
-963:{add:500,max:3000},
-1050:{add:520,max:3350},
-1135:{add:545,max:3900},
-1220:{add:570,max:4400},
-1412:{add:640,max:5400},
-2195:{add:680,max:6000},
-3688:{add:730,max:6500},
-4394:{add:800,max:7000},
-5534:{add:960,max:8000},
-6238:{add:1100,max:9200},
-7376:{add:1500,max:10000}
+const packageMax = {
+wp:100,
+11:250,
+22:300,
+56:400,
+86:500,
+112:650,
+172:700,
+257:900,
+343:1200,
+429:1500,
+514:1800,
+600:2000,
+706:2300,
+878:2500,
+963:3000,
+1050:3350,
+1135:3900,
+1220:4400,
+1412:5400,
+2195:6000,
+3688:6500,
+4394:7000,
+5534:8000,
+6238:9200,
+7376:10000
 };
 
-/* =========================
-   LOGIN
-========================= */
+/* REGISTER */
 
-function login(){
+async function register(){
 
-const provider =
-new firebase.auth.GoogleAuthProvider();
+const email =
+document.getElementById(
+"registerEmail"
+).value;
 
-auth.signInWithPopup(provider)
+const username =
+document.getElementById(
+"registerUsername"
+).value;
 
-.catch((error)=>{
+const password =
+document.getElementById(
+"registerPassword"
+).value;
 
-alert(error.message);
+if(
+email === "" ||
+username === "" ||
+password === ""
+){
 
-});
+alert("Fill all fields");
+return;
 
 }
 
-/* =========================
-   AUTO LOGIN
-========================= */
+try{
+
+const result =
+await auth.createUserWithEmailAndPassword(
+email,
+password
+);
+
+const user = result.user;
+
+const redeemData = {};
+
+Object.keys(packageMax).forEach((key)=>{
+
+redeemData[key] = 0;
+
+});
+
+await db.collection("users")
+.doc(user.uid)
+.set({
+
+email:email,
+username:username,
+packageRedeems:redeemData
+
+});
+
+alert("Register Success");
+
+showLogin();
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/* LOGIN */
+
+async function login(){
+
+const email =
+document.getElementById(
+"loginEmail"
+).value;
+
+const password =
+document.getElementById(
+"loginPassword"
+).value;
+
+try{
+
+await auth.signInWithEmailAndPassword(
+email,
+password
+);
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/* AUTO LOGIN */
 
 auth.onAuthStateChanged(async(user)=>{
 
 if(user){
 
-currentUserUID = user.uid;
-
-const userRef =
-db.collection("users").doc(user.uid);
-
 const doc =
-await userRef.get();
+await db.collection("users")
+.doc(user.uid)
+.get();
 
-if(!doc.exists){
-
-await userRef.set({
-gmailName:user.displayName,
-username:"",
-packageRedeems:{},
-history:[]
-});
-
-}
-
-const data =
-(await userRef.get()).data();
-
-/* =========================
-   USER INFO
-========================= */
+const data = doc.data();
 
 document.getElementById(
 "welcomeText"
 ).innerText =
 "Welcome " +
-(data.username || "Set Username");
+data.username;
 
-document.getElementById(
-"profileName"
-).innerText =
-"Username: " +
-(data.username || "Not Set");
-
-document.getElementById(
-"username"
-).value =
-data.username || "";
-
-/* =========================
-   LOAD REDEEMS
-========================= */
-
-loadRedeemPoints(
-data.packageRedeems || {}
+loadRedeems(
+data.packageRedeems
 );
-
-/* =========================
-   SHOW HOME
-========================= */
 
 document.getElementById(
 "loginPage"
 ).style.display = "none";
 
 document.getElementById(
+"registerPage"
+).style.display = "none";
+
+document.getElementById(
 "homePage"
 ).style.display = "block";
 
-/* =========================
-   ADMIN PANEL
-========================= */
-
-if(adminUIDs.includes(user.uid)){
+}else{
 
 document.getElementById(
-"adminPanel"
+"loginPage"
 ).style.display = "block";
 
-}
-
-/* =========================
-   USERNAME ALERT
-========================= */
-
-if(!data.username){
-
-alert(
-"Please set your Telegram username. Admin needs your username to add points."
-);
-
-showPage("profile");
-
-}
+document.getElementById(
+"homePage"
+).style.display = "none";
 
 }
 
 });
 
-/* =========================
-   LOAD REDEEM POINTS
-========================= */
+/* LOAD REDEEMS */
 
-function loadRedeemPoints(data){
+function loadRedeems(data){
 
-Object.keys(packages).forEach((key)=>{
-
-const current =
-data[key] || 0;
-
-const max =
-packages[key].max;
+Object.keys(data).forEach((key)=>{
 
 const element =
 document.getElementById(
@@ -198,9 +206,9 @@ if(element){
 
 element.innerText =
 "Redeem " +
-current +
+data[key] +
 "/" +
-max;
+packageMax[key];
 
 }
 
@@ -208,211 +216,68 @@ max;
 
 }
 
-/* =========================
-   SAVE USERNAME
-========================= */
+/* LOGOUT */
 
-async function saveUsername(){
+function logout(){
 
-const username =
-document.getElementById(
-"username"
-).value;
-
-if(username === ""){
-
-alert("Enter Telegram Username");
-
-return;
+auth.signOut();
 
 }
 
-await db.collection("users")
-.doc(currentUserUID)
-.update({
+/* SHOW REGISTER */
 
-username: username
-
-});
+function showRegister(){
 
 document.getElementById(
-"profileName"
-).innerText =
-"Username: " + username;
-
-document.getElementById(
-"welcomeText"
-).innerText =
-"Welcome " + username;
-
-alert("Username Saved");
-
-}
-
-/* =========================
-   PAGE SWITCH
-========================= */
-
-function showPage(page){
-
-document.getElementById(
-"homeSection"
+"loginPage"
 ).style.display = "none";
 
 document.getElementById(
-"redeemSection"
-).style.display = "none";
-
-document.getElementById(
-"historySection"
-).style.display = "none";
-
-document.getElementById(
-"profileSection"
-).style.display = "none";
-
-if(page === "home"){
-
-document.getElementById(
-"homeSection"
+"registerPage"
 ).style.display = "block";
 
 }
 
-if(page === "redeem"){
+/* SHOW LOGIN */
+
+function showLogin(){
 
 document.getElementById(
-"redeemSection"
+"registerPage"
+).style.display = "none";
+
+document.getElementById(
+"loginPage"
 ).style.display = "block";
 
 }
 
-if(page === "history"){
+/* FORGOT PASSWORD */
 
-document.getElementById(
-"historySection"
-).style.display = "block";
+async function forgotPassword(){
 
-}
-
-if(page === "profile"){
-
-document.getElementById(
-"profileSection"
-).style.display = "block";
-
-}
-
-}
-
-/* =========================
-   ADMIN ADD POINTS
-========================= */
-
-async function adminAdd(){
-
-if(
-!adminUIDs.includes(
-currentUserUID
-)
-){
-
-alert("Access Denied");
-
-return;
-
-}
-
-const username =
-document.getElementById(
-"searchUsername"
-).value;
-
-const item =
-document.getElementById(
-"item"
-).value.toLowerCase();
-
-const amount =
-parseInt(
-document.getElementById(
-"amount"
-).value
+const email = prompt(
+"Enter your registered Gmail"
 );
 
-if(!packages[item]){
-
-alert("Invalid Package");
+if(!email){
 
 return;
 
 }
 
-const addValue =
-packages[item].add * amount;
+try{
 
-const snapshot =
-await db.collection("users")
-.where("username","==",username)
-.get();
-
-if(snapshot.empty){
-
-alert("User not found");
-
-return;
-
-}
-
-snapshot.forEach(async(doc)=>{
-
-const data =
-doc.data();
-
-const currentRedeems =
-data.packageRedeems || {};
-
-const currentValue =
-currentRedeems[item] || 0;
-
-currentRedeems[item] =
-currentValue + addValue;
-
-const history =
-data.history || [];
-
-history.push({
-item:item,
-amount:addValue,
-time:new Date().toLocaleString()
-});
-
-await db.collection("users")
-.doc(doc.id)
-.update({
-
-packageRedeems:
-currentRedeems,
-
-history:history
-
-});
-
-if(doc.id === currentUserUID){
-
-loadRedeemPoints(
-currentRedeems
-);
-
-}
-
-});
+await auth.sendPasswordResetEmail(email);
 
 alert(
-"Added " +
-addValue +
-" redeem points to " +
-item
+"Password reset email sent.\nCheck your Gmail inbox."
 );
+
+}catch(error){
+
+alert(error.message);
+
+}
 
 }
