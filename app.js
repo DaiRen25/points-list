@@ -15,6 +15,10 @@ const db = firebase.firestore();
 
 let currentUserUID = "";
 
+/* =========================
+   ADMIN UID
+========================= */
+
 const adminUIDs = [
 "ew4aLAuauqTh0IBdXNfQMmm83Mw1"
 ];
@@ -62,9 +66,21 @@ new firebase.auth.GoogleAuthProvider();
 
 auth.signInWithPopup(provider)
 
-.then(async(result)=>{
+.catch((error)=>{
 
-const user = result.user;
+alert(error.message);
+
+});
+
+}
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+auth.onAuthStateChanged(async(user)=>{
+
+if(user){
 
 currentUserUID = user.uid;
 
@@ -88,6 +104,10 @@ history:[]
 const data =
 (await userRef.get()).data();
 
+/* =========================
+   USER INFO
+========================= */
+
 document.getElementById(
 "welcomeText"
 ).innerText =
@@ -105,7 +125,17 @@ document.getElementById(
 ).value =
 data.username || "";
 
-loadRedeemPoints(data.packageRedeems || {});
+/* =========================
+   LOAD REDEEMS
+========================= */
+
+loadRedeemPoints(
+data.packageRedeems || {}
+);
+
+/* =========================
+   SHOW HOME
+========================= */
 
 document.getElementById(
 "loginPage"
@@ -115,6 +145,10 @@ document.getElementById(
 "homePage"
 ).style.display = "block";
 
+/* =========================
+   ADMIN PANEL
+========================= */
+
 if(adminUIDs.includes(user.uid)){
 
 document.getElementById(
@@ -123,19 +157,23 @@ document.getElementById(
 
 }
 
+/* =========================
+   USERNAME ALERT
+========================= */
+
 if(!data.username){
 
 alert(
-"Please set your Telegram username."
+"Please set your Telegram username. Admin needs your username to add points."
 );
 
 showPage("profile");
 
 }
 
-});
-
 }
+
+});
 
 /* =========================
    LOAD REDEEM POINTS
