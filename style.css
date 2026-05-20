@@ -1,5 +1,7 @@
+/* style.css */
+
 body{
-body:0;
+margin:0;
 padding:0;
 background:#0f172a;
 font-family:sans-serif;
@@ -10,11 +12,18 @@ color:white;
 padding:20px;
 }
 
+/* LOGIN + REGISTER */
+
 .login-box{
 margin-top:120px;
 background:#1e293b;
 padding:20px;
 border-radius:16px;
+}
+
+.login-box h1{
+text-align:center;
+margin-bottom:20px;
 }
 
 input{
@@ -27,6 +36,20 @@ background:#334155;
 color:white;
 box-sizing:border-box;
 font-size:15px;
+outline:none;
+}
+
+select{
+width:100%;
+padding:14px;
+margin-top:12px;
+border:none;
+border-radius:12px;
+background:#334155;
+color:white;
+box-sizing:border-box;
+font-size:15px;
+outline:none;
 }
 
 button{
@@ -43,10 +66,11 @@ cursor:pointer;
 }
 
 p{
-text-align:center;
 margin-top:15px;
 cursor:pointer;
 }
+
+/* TOP CARD */
 
 .top-card{
 background:#1e293b;
@@ -59,6 +83,17 @@ border-radius:16px;
 margin:0;
 color:#38bdf8;
 }
+
+/* HOME */
+
+.home-card{
+background:#1e293b;
+margin:20px;
+padding:20px;
+border-radius:16px;
+}
+
+/* PACKAGES */
 
 .packages{
 padding:20px;
@@ -82,9 +117,41 @@ color:#38bdf8;
 
 .package p{
 margin:0;
-text-align:left;
 font-size:15px;
 }
+
+/* HISTORY */
+
+.history-box{
+margin:20px;
+}
+
+.history-card{
+background:#1e293b;
+padding:20px;
+border-radius:16px;
+margin-top:15px;
+}
+
+/* PROFILE */
+
+.profile-box{
+background:#1e293b;
+margin:20px;
+padding:20px;
+border-radius:16px;
+}
+
+/* ADMIN PANEL */
+
+.admin-panel{
+background:#1e293b;
+margin:20px;
+padding:20px;
+border-radius:16px;
+}
+
+/* CONTACT */
 
 .contact-box{
 background:#1e293b;
@@ -92,10 +159,6 @@ margin:20px;
 padding:20px;
 border-radius:16px;
 margin-bottom:120px;
-}
-
-.contact-box h3{
-margin-top:0;
 }
 
 .telegram-btn{
@@ -111,13 +174,24 @@ font-weight:bold;
 margin-top:15px;
 }
 
+/* NAVBAR */
+
 .bottom-nav{
 position:fixed;
 bottom:0;
 left:0;
 width:100%;
-padding:15px;
+display:flex;
+gap:10px;
+padding:10px;
 background:#1e293b;
 box-sizing:border-box;
 border-top:1px solid #334155;
+overflow-x:auto;
+}
+
+.bottom-nav button{
+margin:0;
+white-space:nowrap;
+min-width:90px;
 }
